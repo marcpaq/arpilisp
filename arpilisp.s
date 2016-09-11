@@ -4,10 +4,13 @@
 
 	Get Started with Arpilisp
 
+	Side note: if this file looks funny, use a text editor that displays a
+	fixed-width font and uses 8 spaces for tabs.
+
 	Arpilisp is the Assembled Raspberry Pi Lisp.  This tutorial uses assembly
-	language, the lowest level programming language, to implement a Lisp
-	interpreter, the highest level language.  Arpilisp implements Lisp from scratch,
-	with no help from libraries and minimal help from the OS.
+	language, the lowest level programming language, to implement an interpreter for
+	Lisp, the highest level language.  Arpilisp implements Lisp from scratch, with
+	no help from any libraries and minimal help from the kernel.
 
 	Before you use arpilisp, you need to build it.  To build arpilisp, you need
 	a few things:
@@ -20,9 +23,9 @@
 
 	gcc -nostdlib -o arpilisp arpilisp.s
 
-	This tells the GNU compiler (gcc) to build an executable file named arpilisp and
-	use arpilisp.s, this file that you are reading, as input.  Later we cover what
-	the -nostdlib option does.
+	This tells the GNU compiler (gcc) to use arpilisp.s, this file that you are
+	reading, as input, to build build an executable file named arpilisp.  Later we
+	cover what the -nostdlib option does.
 
 	To use arpilisp itself, type this:
 
@@ -98,7 +101,7 @@
 
 	A symbol is just that: a name.  What the symbol represents depends on you, the
 	programmer.  In our list above, lettuce, tomato, oil, and vingear are symbols
-	for salad ingredients. We sometimes refer to symbols as atoms.  Unlike lists,
+	for salad ingredients.  We sometimes refer to symbols as atoms.  Unlike lists,
 	atoms are not composed of parts. 
 
 	In Lisp, lists and atoms are called "S-expressions".  We also use just
@@ -134,7 +137,7 @@
 	indeed equal. Using the t symbol to represent "true" is a Lisp convention, while
 	nil is the conventional value for false.
 
-	In Lisp, we use "function application" to mean applying a function to arguments.
+	In Lisp, we say "function application" to mean applying a function to arguments.
 	In our example, we apply eq to two arguments.  The function compares them for
 	equality, then returns a "t" for true or "nil" for false.
 
@@ -153,11 +156,10 @@
 
 	(eq () nil)
 	
-	Notice that we can't determine how to compute the value of the first eq
-	application until we know the values of its arguments.  Behind the scenes,
-	that's what Lisp does.  If we could watch the internal computation of our
-	S-expresison, we would see Lisp first compute then substitute the values of the
-	arguments.
+	We can't determine how to compute the value of the first eq application until we
+	know the values of its arguments.  Behind the scenes, that's what Lisp does.  If
+	we could watch the internal computation of our S-expression, we would see Lisp
+	first compute then substitute the values of the arguments.
 
 	This substitution renders our expression from this:
 
@@ -224,7 +226,7 @@
 	lambda.  It's also the last expression, so the lambda returns the value of this
 	expression when we apply the lambda.
 
-	If you enter a lambda by itself:
+	When you enter a lambda by itself:
 
 	(lambda (x) (eq nil x))
 
@@ -244,7 +246,8 @@
 	((lambda (x) (eq nil x))
 	  (quote (lettuce tomato oil vinegar)))
 
-	Lisp applies our lambda like a regular function application by following these steps:
+	Lisp applies our lambda like a regular function application by following these
+	steps:
 
 	1. Evaluate the expressions of the arguments. 
 
@@ -277,9 +280,9 @@
 	(eq nil (lettuce tomato oil vinegar))
 
 	Our argument, (lettuce tomato oil vinegar), is not nil, so eq returns nil. Since
-	the only and last expression in the lambda, the lambda application returns nil.
-	Returning nil for a non-nil argument is ironic until you remember that nil means
-	false in this case.
+	this is the only and last expression in the lambda, the lambda application
+	returns nil.  Returning nil for a non-nil argument is ironic until you remember
+	that nil means false in this case.
 	
 	The parameter bindings in a lambda application last only during the application
 	of the lambda.  In step 4, Lisp unbinds the lambda's parameters.  The x argument
@@ -362,11 +365,10 @@
 
 	(test result)
 	
-	The first expression in each clause is a test.  If the test is true, then cond
-	returns the value of the corresponding result expression and stops processing subsequent
-	clauses.  If the test is false, cond proceeds to the next clause.  It continues
-	doing so until it finds a test that returns true or there are no more
-	expressions.
+	If the test expression is true, then cond returns the value of the corresponding
+	result expression and stops processing subsequent clauses.  If the test is
+	false, cond proceeds to the next clause.  It continues doing so until it finds a
+	test that returns true or there are no more expressions.
 
 	For example, to evaluate this expression:
 
@@ -383,8 +385,8 @@
 
 	(eq name (quote Valerie))
 
-	Given our most recent binding of the symbol name, this test evaluates to false.
-	Lisp skips to the next clause:
+	Given our most recent binding for name, this test evaluates to false.  Lisp
+	skips to the next clause:
 
 	((eq name (quote James)) (quote silly))
 
@@ -401,15 +403,14 @@
 	doesn't get evaluated.
 	
 	As a matter of good habit, we always put a final clause in a cond that has t for
-	a condition expression.  By following this habit, we assure oursevles that a cond
-	expression returns a value that we specify when all other clause tests are false.
+	a condition expression.  That way we assure ourselves that a cond expression
+	returns a value that we specify when all other clause tests are false.
 
 	Lisp isn't all special forms.  In fact, there are only a handful.  Most Lisp
 	built-in functions evaluate arguments normally.
 
-	For example, the most frequently-used, non-mnemonic Lisp functions are car and
-	cdr.  For now, we partly describe what they do, with full details of their
-	awesomeness later.
+	For example, the most frequently-used Lisp functions are car and cdr.  For now,
+	we partly describe what they do, with full details of their awesomeness later.
 
 	The car function returns the first item in a list and cdr returns a list without
 	its first item.  Helpful synonyms for these functions are "first" and "rest",
@@ -482,7 +483,7 @@
 
 	The Shortest Introduction to ARM Assembly Language
 
-	Today's machines have ample capacity to let us pile on layers of operating
+	Today's computers have ample capacity to let us pile on layers of operating
 	systems, shells, libraries, frameworks, sandboxes, and containers.  So much that
 	we've successfully buried assembly language completely out of mind.  But the
 	machine is still there, and not as inaccessible, alien, or irrelevant as you
@@ -495,18 +496,18 @@
 	(pc).
 
 	An extra register, the processor status register (apsr), offers a few single-bit
-	flags that optionally record effects of previous instructions.
+	condition flags that optionally record effects of previous instructions.
 
-	To manipulate data, as in to perform arithmetic, comparison, bit fiddling, and
+	To manipulate data, like arithmetic, comparison, bit fiddling, and
 	so on, ARM requires that we use registers.  ARM has no instructions to
 	manipulate data in memory.  Before we operate on something, we first need to
 	load it from memory to a register.  In fact, we can't even directly load from or
 	store to memory.  We need to load an address into a register then use that
 	register to specify the location of a load (ldr) or store (str) operation.
 
-	Side note: Yes, loading an address before loading the contents of
-	the address seems like a chicken and egg situation.  It's not, of course.  The
-	assembler and the processor play some convenient tricks to solve this problem.
+	Side note: Yes, loading an address before loading the contents of the address
+	seems like a chicken and egg situation.  It's not, of course.  The assembler and
+	the processor play some convenient tricks to solve this problem for us.
 
 	In GNU assembler, constants begin with a pound sign (#).  Addresses start with an
 	equal sign (=).
@@ -546,12 +547,10 @@
 
 	Procedures in Assembly
 
-	We use assembler macros to manage how we define procedures in assembly.
-
-	These macros tell the assembler, the debugger, and us where a procedure starts
-	and ends.  They also make sure that the assembler aligns instructions properly
-	and places constant values that our procedure refers to in a place that the
-	procedure can reach.
+	These assembler macros tell the assembler, the debugger, and us where a
+	procedure starts and ends.  They also make sure that the assembler aligns
+	instructions properly and places constant values that our procedure refers to in
+	a place that the procedure can reach.
 
 	Reference
 
@@ -576,11 +575,12 @@
 
 	Errors
 
-	We need a way to flag an error. We'll use the overflow (V) flag. This gives us a
-	simple mechanism to set and detect error conditions.  Reacting to an error is as
-	simple as appending the "vs" or "vc" condition code to affected instructions.
+	We need a way to flag an error. We'll use the overflow (V) flag in the apsr.
+	This gives us a simple mechanism to set and detect error conditions.  Reacting
+	to an error is as simple as appending the "vs" or "vc" condition code to
+	affected instructions.
 
-	Our error-flagging method is blunt--it clears all status flags along with
+	Our error-flagging method is blunt--it clears all condition flags along with
 	setting or clearing V.  As long as we keep that in mind, we won't get stung.
 
 	*/
@@ -600,8 +600,9 @@
 	Returning boolean results
 
 	We use the Z flag in the status register to handle true and false results.  When
-	we set the Z flag, we can test for it with the EQ condition flag.  Otherwise, we
-	clear the status registers to use the NE condition.
+	we set the Z flag (and bluntly clear other conditions), we can test for it with
+	the EQ condition flag.  Otherwise, we clear the status registers to use the NE
+	condition.
 
 	*/
 	.macro ZSET
@@ -629,18 +630,17 @@
 	*/
 	.equiv LISPSTACKMAX, 1000	/* Number of pointers to Lisp objects. */
 
-	.data
+	.bss
 	.balign 4
 lispstackbottom:
-	.space LISPSTACKMAX * 4, NIL
+	.space LISPSTACKMAX * 4
 	.equiv lispstacktop, .
 
 	/*
 
-	Push the Lisp value in r0 onto the Lisp stack.  Signal an error if the
-	stack is full, otherwise clear the status flags.  Generating an error instead of
-	panicking is fine because it lets our interpreter gracefully recover from
-	exhausted Lisp stack space.
+	Push the Lisp value in r0 onto the Lisp stack.  Signal an error if the stack is
+	full.  Generating an error instead of panicking is fine because it lets our
+	interpreter gracefully recover from exhausted Lisp stack space.
 
 	*/
 	
@@ -665,7 +665,7 @@ lispstackbottom:
 
 	Panic if we try to pop from an empty stack.  We panic instead of generating an
 	error because a pop requires a previous push.  In other words, a mismatched pop
-	implies a bug in the Lisp interpreter's logic, not the Lisp program that it is
+	implies a bug in the interpreter's logic, not the Lisp program that it is
 	interpreting.
 
 	*/
@@ -697,7 +697,7 @@ lispstackbottom:
 
 	Remember car and cdr, the functions that return different parts of a
 	list?  It turns out that these weird function names are based on the traditional
-	names for each pointer in the cons cell.
+	names for the pointers in the cons cell.
 
 	cons cell
 	+-----+-----+
@@ -723,8 +723,8 @@ lispstackbottom:
 	   v
 	symbol
 
-	A safe, practical value for nil is 0.  We store nothing useful at memory
-	location 0.
+	For simplicity of implementation, a practical value for nil is 0.  We store
+	nothing useful at memory location 0.
 
         Side note: In fact, a Linux user program cannot store or load location 0.  The
 	ARM Linux kernel doesn't allow it by design.  Doing so results in a segmentation
@@ -743,13 +743,13 @@ lispstackbottom:
 	bytes.
 
 	*/
-	.data
+	.bss
 	.balign 4
 
 	.equiv CELLMAX, 10000
 
 cells:
-	.space CELLMAX * 2 * 4, NIL
+	.space CELLMAX * 2 * 4
 	.equiv cellsend, .
 
 	/*
@@ -768,7 +768,7 @@ cells:
 
 	So it's up to our interpreter to implement automatic memory management.  When a
 	Lisp program runs out of memory, the intreter must look for abandoned memory to
-	reuse it.  The first implementors of Lisp called this "garbage collection."  The
+	reuse.  The first implementors of Lisp called this "garbage collection."  The
 	name stuck.
 
 	The first Lisp used mark-sweep garbage collection.  So do we because it is
@@ -777,9 +777,9 @@ cells:
 
 	There are two ingredients to marking and sweeping: a free list and a root set.
 
-	First ingredient: the free list.  The free list points to abandoned cells, ready
-	to use.  When a program needs a new cons cell, Lisp removes it from the free
-	list and gives it to the program.
+	First ingredient: the free list.  The free list points to abandoned cells that
+	are ready to use.  When a Lisp program needs a new cons cell, Lisp removes it
+	from the free list and gives it to the program.
 
 	*/
 
@@ -792,7 +792,7 @@ freelist:
 	through the cell pool, pointing each cons cell's cdr to the next cons cell.  At
 	the last cons cell, we point to nil.
 
-	Our free list initially looks like this:
+	When it's initialized, our free list initially looks like this:
 	
 	             +-----+-----+   +-----+-----+            +-----------+
 	freelist --->| car | cdr --->| car | cdr ---> ... --->| car | cdr --->nil 
@@ -859,8 +859,6 @@ freelist:
 	reachable cells from a marked cell, and we only use the mark bit during the
 	marking phase of garbage collection.
 
-	Remember the Lisp stack?  We use that for our root set.
-	
 	*/
 	.equiv MARKMASK, 0b10
 
@@ -993,9 +991,9 @@ freelist:
 		  |		    |	
 	          +-----------------+
 	
-	Given a pointer to Lisp objects in r1 and r2, return a allocated cell in r0 such
+	Given pointers to Lisp objects in r1 and r2, return an allocated cell in r0 such
 	that its car contains r1 and cdr contains r2.  Otherwise, panic if there is no
-	memory, issue an error if the Lisp stack is full.
+	memory or issue an error if the Lisp stack is full.
 
 	*/
 
@@ -1049,21 +1047,20 @@ freelist:
 	symbol.  For example, a symbol has a property called the print name, which is
 	the textual representation of the symbol.  To print a symbol, the Lisp
 	interpreter retrieves the print name property and outputs it.  The property
-	mechanism is overkill for arpilisp.  Instead, we keep things simple: a symbol is
-	just a reference to its print name.
+	mechanism is overkill for arpilisp.  Instead, we use a symbol as a reference to
+	its print name.
 
-	The format we use for print names is the length of the character string encoded
-	as a word-aligned word, followed by the character string of the print name
-	itself.  The next print name follows after that, aligned to a word boundary, and
-	so on.
+	The format we use for print names is the length of its print name encoded as a
+	word-aligned word, followed by the character string of the print name itself.
+	The next print name follows after that, aligned to a word boundary, and so on.
 
 	symbol 1			 	 symbol 2
 	+-----------+------------+--------------+---- - - -
 	| length    | characters | padding      | length
 	+- 4 bytes -+- n bytes --+- <= 4 bytes -+---- - - -
 
-	We store symbol print names in a block of memory.  The original Lisp, and many
-	Lisp implementations today, call this block "obarray." 
+	We store symbol print names in a block of memory.  The traditional name for this
+	block is "obarray."
 
 	*/
 
@@ -1092,7 +1089,7 @@ obarray:
 
 	*/
 
-	.equiv SYMMASK, 0b01
+	.equiv SYMMASK, 1
 
 	/*
 
@@ -1100,11 +1097,11 @@ obarray:
 	symbol into a usable pointer, we mask out the flag and add the address of
 	obarray.
 	
-	Why do we not use a real pointer instead of addding the address of obarray?  It
-	turns out that setting up the initial symbols we need for arpilisp poses a
-	challenge.  Ideally, we would like to pre-fill obarray at assembly time instead
-	of runtime.  But the assembler won't let us perform assembler-time arithmetic on
-	labels because the ELF binary format and the Linux kernel conspire to force the
+	Why not use a real pointer instead of addding the address of obarray?  It turns
+	out that setting up the initial symbols we need for arpilisp poses a challenge.
+	Ideally, we would like to pre-fill obarray at assembly time instead of runtime.
+	But the assembler won't let us perform assembler-time arithmetic on labels
+	because the ELF binary format and the Linux kernel conspire to force the
 	calculations of final addresses only at runtime.
 
 	We could hard-code the addresses of Lisp symbols at assembly time, but we'd have
@@ -1176,7 +1173,7 @@ obarrayend:
 
 	One way to do this is to compare their print names, character by character.
 
-	A much simpler and faster way is to compare the symbol pseudo-pointers.
+	A much simpler and faster way is to compare the symbols' pseudo-pointers.
 
 	Remember the eq function earlier?  Implementing this function in assembler is
 	dead easy: just compare two pointers.  For cells and nil, this work well.  We
@@ -1185,7 +1182,9 @@ obarrayend:
 	that symbols are unique, which means making sure that we only record a single
 	copy of a symbol.
 
-	The up side of storing a single copy of a print name is that we save memory.
+	Side note: The up side of storing a single copy of a print name is that we save
+	memory, which is, incidentally, why we don't bother with garbage collection of
+	symbols.
 
 	In Lisp, we say that this storage of only one instance of a symbol is
 	"interning" a symbol.  To create a new symbol, either return a reference to the
@@ -1200,7 +1199,7 @@ obarrayend:
 	*/
 	.equiv INTERNMAX, 32		/* A multiple of 4 */
 
-	.data
+	.bss
 	.balign 4
 internbufferlen:
 	.word 0
@@ -1328,7 +1327,7 @@ internbuffer:
 	/* Encode our pointer as a symbol. */
 8:	ldr r1, =obarray		/* Subtract obarray base. */
 	sub r7, r0, r1
-	orr r7, r7, #SYMMASK	/* Imprint the mask. */
+	orr r7, r7, #SYMMASK		/* Imprint the mask. */
 
 	pop { r0-r5, pc }
 
@@ -1355,7 +1354,7 @@ internbuffer:
 
 	cdr = pointer
 
-	A few things to note:
+	A few things about the first draft of our syntax rules:
 
 	* A cell's textual representation starts and ends with parentheses.
 
@@ -1364,9 +1363,6 @@ internbuffer:
 
 	* A list is a recursive definition; a car and cdr may each point to other cells
 	via the syntax rule, pointer. 
-
-	* Now you know why Lisp is sometimes referred to as "Lots of Irritating, Stupid
-	Parentheses."
 
 	Example output from these rules:
 
@@ -1396,8 +1392,8 @@ internbuffer:
 	   v
 	beluga
 
-	* Let C be a cons cell with car pointing to symbol "cantilever" and cdr pointing to
-	cell B.  Its output: "(cantilever . (beluga . nil))".
+	* Let C be a cons cell with car pointing to symbol "cantilever" and cdr pointing
+	to cell B.  Its output: "(cantilever . (beluga . nil))".
 
 	C                B
 	+-----+-----+  	 +-----+-----+
@@ -1412,6 +1408,9 @@ internbuffer:
 	lot of dots and parentheses for cons cells structures that barely approach
 	complexity.
 
+	Now you know why Lisp is sometimes referred to as "Lots of Irritating, Stupid
+	Parentheses."
+
 	Let's add a couple of rules to make the output a little cleaner. 
 
 	Our new rules:
@@ -1420,15 +1419,15 @@ internbuffer:
 
 	cell = '(' cell-contents ')'
 
-	cell-contents = car ' ' (cdr-nil | cdr-symbol | cdr-cell)
+	cell-contents = car ' ' (cdr-nil | cdr-cell | cdr-symbol )
 
 	car = pointer
 
 	cdr-nil = empty-string
 
-	cdr-symbol = ' . ' symbol
-
 	cdr-cell = ' ' cell-contents
+
+	cdr-symbol = ' . ' symbol
 
 	Note our changes:
 	
@@ -1452,7 +1451,7 @@ internbuffer:
 
 	* C: "(cantilever beluga)"
 
-	Now our output rules are consistent with the lists we saw earlier. 
+	Now our output rules are consistent with what we expect about list output.
 
 	Before we start printing, let's define some character strings to match our
 	rules.
@@ -1481,12 +1480,8 @@ dotstr:
 
 	/*
 
-	Most Lisp implementations provide prin1 and print functions.  Historically,
-	prin1 outputs anything but a cons cell while print provides higher-level output,
-	formatting any Lisp object and ending output with a newline.
-
-	For our convenience, we simplify things by defining prin1 to output any Lisp
-	object without a newline ending.
+	Most Lisp implementations provide prin1 and print functions.  The prin1
+	procedure outputs a Lisp object without a newline ending.
 
 	Given a pointer to a Lisp object in r0, output its textual representation.
 
@@ -1503,7 +1498,7 @@ dotstr:
 	ldr r0, =symnil
 	b 2f
 
-1:	tst r0, #SYMMASK	/* Is this a symbol? */
+1:	tst r0, #SYMMASK		/* Is this a symbol? */
 	beq 3f
 
 	/* Print a symbol. */
@@ -1589,30 +1584,29 @@ eolstr:
 
 	Low-Level I/O
 	
-	With the logic to format S-expressions done, we need a way to actually get this
-	information into the real world for the user to see.  This is the part where we
-	implement I/O.
+	With the logic to format S-expressions for output, we need a way to actually get
+	this information into the real world for the user to see.  This is the part
+	where we implement I/O.
 
-	Notice that the gcc command we use earlier to build arpilisp includes the
-	-nostdlib option.  This tells gcc not to link to the standard system libraries
-	and startup libraries.  These libraries pile layers of convenient wrappers and
-	lots of infrastructure between a user program and the kernel's low-level
-	services.
+	Notice that the gcc command we use earlier includes the -nostdlib option.  This
+	tells gcc not to link to the standard system and startup libraries.  These
+	libraries pile layers of convenient wrappers and lots of infrastructure between
+	a user program and the kernel's low-level services.
 
-	We avoid that.  Instead, we call the linux kernel directly through its system
-	call interface.  Each system call has a unique number.  Most system calls also
-	need parameters.  To cross the border between a user program and the kernel, we
-	load the system call's number and parameters into registers then use the svc
-	instruction to take the leap into the kernel.  The kernel does its magic and
-	returns execution to the user program at the next instruction after svc.
+	We choose to avoid that.  Instead, we call the linux kernel directly through its
+	system call interface.  Each system call has a unique number.  Most system calls
+	also need parameters.  To cross the border between a user program and the
+	kernel, we load the system call's number and parameters into registers then use
+	the svc instruction to take the leap into the kernel.  The kernel does its magic
+	and returns execution to the user program at the next instruction after svc.
 
 	Arpilisp uses a minimum of system calls.  The full list is here:
 
 	/usr/src/arch/arm/kernel/calls.S
 
-	For output, we use sys_write and the standard output file.  The kernel requires
-	that we specify the address of the buffer to write from in r1 and the length of
-	the buffer in r2.
+	For output, we use sys_write, specified by r7, and the standard output file, in
+	r0.  The kernel also requires that we specify the address of the buffer to write
+	from in r1 and the length of the buffer in r2.
 
 	*/
 
@@ -1631,16 +1625,16 @@ eolstr:
 
 	Input
 
-	In Lisp, the read function converts raw input characters into an S-expression.
+	In Lisp, the read function converts input characters into an S-expression.
 
 	We read a little differently than we print.  Printing is simple: we already
 	know everything we need to print.  But when we read, we don't know what it is
 	until it's read completely.
 
-	Most texts on programming language implementation divide the problem of input
-	processing into lexical analysis and parsing.  Lexical analysis groups
+	Most books on programming language implementation divide the problem of input
+	processing into lexical analysis and parsing.  A lexical analyzer groups
 	characters into tokens.  A parser then groups tokens into expressions,
-	statements, and the other higher-level constructs of a conventional language.
+	statements, and the other higher-level constructs of a high-level language.
 
 	S-expression syntax, especially for arpilisp, is simple enough not to worry
 	about a formal separation of lexical analysis and parsing.  Lexical analysis for
@@ -1658,15 +1652,18 @@ eolstr:
 	you're done reading the token.
 
 	A symbol token is composed of one or more sequential characters. This is a
-	problem because we read only a single character at a time.  When we get the
+	problem because we can read only a single character at a time.  When we get the
 	first character that forms a symbol, we have no way to know if we have read all
-	of the symbol until we read the next character.  For example, we read an "h"
-	character.  This "h" might be a complete symbol.  But it might not be, so we are
-	compelled to keep reading.  We read the next few characters, which are "a" then
-	"t" then " " (space).  The space is not part of symbol, which tells us
-	conclusively that the previous three characters form the symbol "hat".
+	of the symbol.  The only way to confirm whether we have read a complete symbol
+	or not is to read the next character.
 
-	Reading the space means we have gone too far, having read a character that we
+	For example, we read an "h" character.  This "h" might be a complete symbol.
+	But it might not be, so we are compelled to keep reading.  We read the next few
+	characters, which are "a" then "t" then " " (space).  The space is not part of
+	the symbol, which tells us conclusively that the previous three characters form
+	the symbol "hat".
+
+	Reading the space means we have gone too far. We have read a character that we
 	can't use now but will need later for the next token.  We need some way to
 	"unread" this character.
 
@@ -1685,8 +1682,8 @@ eolstr:
 	variable, Look, and a function, GetChar.  Look contains the character that the
 	lexical analyzer is currently considering.  GetChar updates Look by reading the
 	next character in a file.  In other words, only when we are sure that we can use
-	the Look character do we bother to read the next character, where it is
-	safely held in Look to be analyzed only when it's needed.
+	the Look character do we bother to read the next character, where it is safely
+	held in Look to be analyzed when it's needed.
 
 	*/
 
@@ -1729,14 +1726,14 @@ lookbuffer:
 	/*
 
 	We need procedures to validate characters that we read.  For example, we need to
-	know if input can be used for a symbol.
+	know if a character can be used for a symbol.
 
- 	A valid symbol character is any graphical character that is not otherwise part
-	of Lisp syntax.  This means any string of characters is allowed in a symbol
-	excluding control characters (which includes white space), the opening and
-	closing parentheses, and dot.
+ 	In arpilisp, a valid symbol character is any graphical character that is not
+	otherwise part of Lisp syntax.  This means any string of characters is allowed
+	in a symbol excluding control characters (which includes white space), the
+	opening and closing parentheses, and dot.
  
-	This function only works within the Unicode Basic Latin block in Unicode, aka
+	This function only works within the Unicode Basic Latin block, aka
 	ASCII.  We could make the effort to support Unicode more substantially, but we
 	want to focus on Lisp in assembly, not Unicode.
 	
@@ -1816,9 +1813,6 @@ lookbuffer:
 
 	Read an S-expression, returning a pointer to it in r7.
 
-	If there is no error, return with a clear overflow (V) flag.  If there is an
-	error, the V flag is set and r7 contains a printable error condition.
-
 	*/
 
 	PROC read
@@ -1880,9 +1874,6 @@ lookbuffer:
 	/*
 
 	Read a cell, returning a pointer to it in r7.
-
-	If there is no error, return with a clear overlfow flag.  If there is an error,
-	the overflow flag is set and r7 contains a printable error condition.
 
 	Remember that our print rule for cell-contents may contain a car, which is a
 	pointer, which may refer to a cell.  This mutual recursion means we allow an
@@ -1966,7 +1957,8 @@ lookbuffer:
 	Read a symbol starting with the character in r0, returning a pointer to the
 	symbol in r7.
 
-	This procedure assumes that the character in r0 has been validated by issym.
+	This procedure assumes that, on entry, the character in r0 has been validated by
+	issym.
 
 	*/
 	PROC readsym
@@ -2035,7 +2027,6 @@ greeting:
 	.ascii "arpilisp version 22/7\n\n"
 	.equiv GREETINGLEN, . - greeting
 
-
 	/*
 
 	To terminate arpilisp, we use the sys_exit system call.  This call needs only one
@@ -2073,7 +2064,8 @@ greeting:
 	The Read Evaluate Print Loop
 
 	Congratulations for getting through the low-level machinery of a Lisp
-	interpreter.  Now we can implement higher-level parts of Lisp itself.
+	interpreter!  Now we can implement higher-level parts of Lisp itself, stepping
+	in hybrid territory between assembly and Lisp.
 
 	The Read Evaluate Print Loop (REPL) is self-explanatory: read an S-expression,
 	evaluate it, print the value, and do it again.
@@ -2081,17 +2073,17 @@ greeting:
 	The REPL implies direct interaction with the computer, which seems obvious
 	today.  Surprise! This is another innovation that was practically science
 	fiction in the 1950s and '60s.  Back then computers were rare and expensive
-	enough that every minute of processing time was carefully accounted for. "Users"
-	were only allowed to access computers via technicians and often weren't allowed
-	to even be in the same room.
+	enough that every minute of processing time was carefully accounted for.
+	"Users" were only allowed to access computers via technicians and often weren't
+	allowed to even be in the same room.
 
 	Today, we interact with computers ubiquitously, to a level that we don't even
 	call them computers; we call them phones, tablets, watches, cars, and other
 	things.  Thank (or curse) Lisp for lighting the path that we took to get here.
 
 	Notice that our REPL might more accurately be called RDorEPL; Read, Define or
-	Evaluate-Print, Loop.  To simplify our interpreter, we separate variable binding
-	from evaluation.
+	Evaluate-Print, Loop.  To simplify our interpreter, we separate variable
+	definition from evaluation.
 
 	*/
 
@@ -2099,7 +2091,7 @@ greeting:
 
 	mov r9, #NIL			/* Start with an empty environment. */
 
-	/* Reset the Lisp registers. */
+	/* Reset the Lisp registers and Lisp stack. */
 10:	ldr r6, =lispstacktop		/* Empty the Lisp stack. */
 	mov r8, #NIL			/* The S-expression to evaluate. */
 	mov r7, #NIL			/* The value of the evaluated expression. */
@@ -2134,8 +2126,7 @@ greeting:
 	In Lisp, the atom function returns t if its argument is nil or a symbol. It
 	returns nil otherwise, which implies that its argument is a cons cell.
 
-	Our assembly version sets the Z flag if r0 points to an atom and clears all
-	status flags if r0 does not point to an atom.
+	Our assembly version sets the Z condition.
 	
 	*/
 	PROC atom
@@ -2159,7 +2150,7 @@ greeting:
 	Car and cdr are simple in concept, but we implement versions that do some error
 	checking.
 
-	Return the car of r0 in r0.  If src is nil, return nil.  Otherwise, generate an
+	Return the car of r0 in r0.  If r0 is nil, return nil.  Otherwise, generate an
 	error.
 
 	*/
@@ -2181,13 +2172,6 @@ greeting:
 
 	ENDPROC
 
-	/*
-
-	Return the cdr of r0 in r0.  If r0 is nil, return nil.  Otherwise, generate an
-	error if r0 is not a cell.
-
-	*/
-
 	PROC cdr
 
 	push { lr }
@@ -2207,11 +2191,11 @@ greeting:
 
 	/*
 
-	A Lisp environment is the current set of variable bindings with which
-	computation takes place.  At any given moment, the current Lisp environment
-	comprises global variables and function arguments.  The environment changes as a
-	Lisp program directs the interpreter to enter and exit Lisp functions.  We need
-	a data structure to handle insertion and deletion of bindings.
+	A Lisp environment is the current set of variable bindings with which evaluation
+	takes place.  At any given moment, the current Lisp environment comprises global
+	variables and lambda arguments.  The environment changes as a Lisp program
+	directs the interpreter to enter and exit Lisp functions.  We need a data
+	structure to handle insertion and deletion of bindings.
 
 	We use an association list, a traditional Lisp data structure.  An association
 	list is a list of pairs, in which the car of each pair is a key and the cdr its
@@ -2223,16 +2207,13 @@ greeting:
 
 	((a . abacus) (b . beluga) (c . cantilever))
 
-	The question now is how to extract a binding.  Given a key, is it bound? If so
-	what is it bound to?
+	Given a key, is it bound? If so what is it bound to?
 
 	Here is a good time to introduce recursive functions, which is a classic Lisp
-	tool for iteration.  Iteration simply means applying a function to each item in a
-	list.  Don't be surprised when I state that Lisp solves iteration quite
-	elegantly.
+	tool for iteration.  Don't be surprised when I state that Lisp solves iteration
+	quite elegantly.
 
-	Here's the most common pattern you see in a Lisp function to iterates over a
-	list:
+	Here's a common pattern in a Lisp function to iterates over a list:
 
 	* If the list is empty, stop and return a value indicating as much.
 
@@ -2253,10 +2234,10 @@ greeting:
 		  (t                          (assoc key (cdr alist))))))
 
 	Our assoc function searches for the key parameter in the alist parameter.  The
-	body of our assoc function is a single cond statement.  Let's examine each
-	clause.
+	body of our assoc function is a single cond expression.  Let's examine each
+	clause in the cond:
 
-	The first clause in the cond expression:
+	The first clause:
 
 	((null alist)               nil)
 
@@ -2268,19 +2249,19 @@ greeting:
 	
 	((eq key (car (car alist))) (car alist))
 
-	Is the key is equal to the car of the car of the association list?  If they are
+	Is the key equal to the car of the car of the association list?  If they are
 	equal, then return the car of the association list, which is the binding pair.
 
 	The last clause:
 	
 	(t                          (assoc key (cdr alist)))
 
-	This clause acts as a fallback clause, guaranteeing that it will always
-	be evaluated when the test expressions of the all other clauses are false.  At
-	this point, we have not found the binding we are looking for, so we call assoc
-	again with the same key but with the cdr of the association list.  The cdr of
-	the association list excludes the car, which, thanks to the second clause,
-	we know does not have a binding that matches our key parameter.
+	This clause acts as a fallback clause, guaranteeing that it will always be
+	evaluated when the test expressions of the all other clauses are false.  At this
+	point, we have not found the binding we are looking for, so we call assoc again
+	with the same key but with the cdr of the association list.  The cdr of the
+	association list excludes the car.  Thanks to the second clause, we know that
+	the car does not have a binding that matches our key parameter.
 
 	Notice how the last clause calls assoc.  This is the recursive part, which
 	re-applies assoc to the next item in the list.  If you're new to recursion, the
@@ -2376,17 +2357,13 @@ greeting:
 	
 	/*
 
-	The define function extends or modifies the current environment.  It takes 2
-	arguments: symbol to bind and an expression to evaluate and bind to the symbol.
-	The define function is a special form because it does not evaluate its first
-	argument.
+	The define function extends or modifies the environment.  It takes 2 arguments:
+	a symbol and an expression to evaluate and bind to the symbol.
 
-	Given a symbol in r0 and an expression in r7, evaluate the expression then
-	create a binding in the environment, pointed to by r9, for the symbol if
-	necessary and assign the value to it.
+	Given a symbol in r0 and an expression in r7, and an environment in r9, evaluate
+	the expression then create a binding in the environment.
 
-	In the case of an error, set the V flag, store a symbol describing the error in
-	r7, and store the offending expression in r8.
+	In the case of an error, store the offending expression in r8.
 
 	*/
 
@@ -2440,13 +2417,12 @@ greeting:
 
 	Get ready for it: here comes another big Lisp innovation.
 
-	In the paper which he announced Lisp, McCarthy describes the rules for
+	In the paper where he announces Lisp, McCarthy describes the rules for
 	evaluating Lisp expressions.  To describe these rules, he presents a definition
 	of a Lisp function named eval that evaluates Lisp expressions.  It was a
 	ground-breaking feat to define a programming language in terms of itself.  It
 	was an obvious thing to do, considering Lisp's expressiveness.  It was also
-	remarkably concise.  Lucky for us, McCarthy was much better at computer science
-	than writing titles.
+	remarkably concise. 
 
 	Computer scientists call this "self-interpreting".  A self-interpreting language
 	is astonishingly easy to extend.  Just modify its interpreter, which is the
@@ -2454,14 +2430,14 @@ greeting:
 
 	Steve Russell gets credit for implementing the seminal eval in IBM 704 assembly
 	language, paving the way for a real, honest to greatness Lisp interpreter.
-	Thanks to him, it was finally possible to interact with Lisp directly just by
+	Thanks to him, it was possible to interact with Lisp directly just by
 	running a Lisp program.
 
 	To implement our own eval, we follow McCarthy and Russell's lead by first
-	defining our eval in Lisp before implementing it in assembly.
+	defining it in Lisp before implementing it in assembly.
 
-	We start with the simplest of Lisp expressions: (), t, and nil. These are known
-	as self-evaluating expressions because they evaluate to themselves:
+	We start with the simplest of Lisp expressions: () and t.  These are known as
+	self-evaluating expressions because they evaluate to themselves:
 
 	(define eval
 	  (lambda (expr)
@@ -2537,8 +2513,7 @@ greeting:
 	(eval (quote C) e)
 	cantilever
 
-	So far our iterations of eval handle expressions that are not lists.  To
-	evaluate functions, we extend our eval to handle list expressions.  At this
+	To evaluate functions, we extend our eval to handle list expressions.  At this
 	point we can safely assume that an expression is a list because previous cond
 	clauses have already checked for all possible non-list expressions.
 
@@ -2555,13 +2530,14 @@ greeting:
      	     ((eq (car expr) (quote quote))  (arg1 expr))
 	     (t                              (quote errbadlistexpr)))))
 
-	The arg1 and arg2 functions return with the first and second arguments of a list
-	expression:
+	The arg1 and arg2 functions return the first and second arguments of a list
+	expression, respectively:
 
 	(define arg1 (lambda (expr) (car (cdr expr))))
 	(define arg2 (lambda (expr) (car (cdr (cdr expr)))))
 
-	Other special forms and functions are just as simple. Here's the complete eval:
+	Other special forms and functions follow a similar pattern as quote.  Here's the
+	complete eval:
 	
 	(define eval
 	  (lambda (expr env)
@@ -2597,9 +2573,9 @@ greeting:
 	ignore implementing built-in functions and special forms by using the same
 	built-in functions and special forms that Lisp provides.  This chicken-and-egg
 	situation is often called "snarfing" in Lisp.  It might be confusing, but it's
-	ok.  Remember that we are specifying our Lisp interpreter in Lisp rather than
-	defining a working version of it.  The actual implementation is in assembly,
-	below, which gets us outside the chicken-and-egg loop.
+	ok here.  Remember that we are specifying our Lisp interpreter in Lisp rather
+	than defining a working version of it.  The actual implementation is in
+	assembly, which gets us outside the chicken-and-egg loop.
 
 	Another side note: Our Lisp definition of eval is an actual, working Lisp
 	interpreter.  As an exercise, enter this eval and its helper functions in the
@@ -2837,17 +2813,18 @@ greeting:
 
 	/*
 
-	We need a few helper functions.
+	More helper functions.
 
 	First, let's implement cond.  This assembly procedure implements this Lisp
 	function:
 
-	(define evalcond (c env)
+	(define evalcond (lambda (c env)
 	  (cond ((eq c nil) nil)
-		((eval (caar c) env) (eval (cadar c) env))
-		(t (evalcond (cdr c) env))))
+		((eval (car (car c)) env) (eval (car (cdr (car c))) env))
+		(t (evalcond (cdr c) env)))))
 
-	Given a list of cond expressions in r0, return its value in r7.
+	Given a list of cond clauses in r0, return the value of the first clause that
+	tests true in r7.
 
 	*/
 
@@ -2905,9 +2882,9 @@ greeting:
 	(define evlis
 	  (lambda (exprs env)
 	    (cond ((null exprs) nil)
-		  (t (cons
-		       (eval (car exprs) env)
-		       (evlis (cdr exprs) env))))))
+	          (t (cons
+	               (eval (car exprs) env)
+	               (evlis (cdr exprs) env))))))
 
 	Given a list of unevaluated expressions in r0 and an environment pointed to by
 	r9, return a corresponding list of evaluated values in r5. The evaluated values
@@ -2926,14 +2903,12 @@ greeting:
 	cmp r0, #NIL			/* Any expressions? */
 	beq 990f
 
-	/* Evaluate the first expression. */
-	bl car
+	bl car				/* Evaluate the first expression. */
 	mov r8, r0
 	bl eval
 	bvs 999f
 
-	/* Start our list of values. */
-	mov r1, r7
+	mov r1, r7 			/* Start our list of values. */
 	mov r2, #NIL
 	bl cons
 	mov r5, r0
@@ -2976,15 +2951,17 @@ greeting:
 
 	Our assembly apply procedure implements these Lisp functions:
 
-	(defun apply
-	  (lambda (fn env)
-	    (cond ((null (cdr (cdr fn))) nil)
-	          (t (apply-body (cdr (cdr fn)) env)))))
+	(define apply
+	  (lambda (fn args)
+	    (cond
+	      ((null (cdr (cdr fn))) nil)
+	      (t (apply-body (cdr (cdr fn)) (pairlis (car (cdr fn)) args env))))))
 	
 	(define apply-body
 	  (lambda (body env)
-	    (cond ((null (cdr body)) (eval (car body) env))
-		  (t (apply-next body env)))))
+	    (cond
+	      ((null (cdr body)) (eval (car body) env))
+	      (t (apply-next body env)))))
 
 	(define apply-next
 	  (lambda (body env)
@@ -3095,24 +3072,18 @@ greeting:
 
 	((lambda (x) (eq name x)) (quote Nicole))
 	t
-	((lambda (x) (eq name x)) (quote Marc))
-	nil
-
-	In this case, name is bound outside of the lambdas that we apply.  But the name
-	binding is still active during the lambda applications and remain after the
-	applications.
 
 	For arpilisp, we implement this:
 
 	(define pairlis
 	  (lambda (params vals env)
-		(cond ((and (null params) (null vals)) env)
-		((null params) (quote errargextra))
-		((null vals) (quote errargmissing))
-		(t (cons
-			(cons (car params) (car vals))
-			(pairlis (cdr params) (cdr vals) env)))))
-
+	    (cond
+	      ((null params) (cond ((null vals) env) (t (quote errargextra))))
+	      ((null vals) (quote errargmissing))
+	      (t (cons
+	           (cons (car params) (car vals))
+	           (pairlis (cdr params) (cdr vals) env))))))
+  
 	Given a list of parameters in r0, a list of values in r5, and an environment to
 	extend in r9, bind each parameter to a value then extend r9.
 
@@ -3183,5 +3154,29 @@ greeting:
 
 	Enjoy yourself.
 
+	________________________________________________________________________________
+
+	MIT License
+
+	Copyright (c) 2016 Marc Paquette
+
+	Permission is hereby granted, free of charge, to any person obtaining a copy
+	of this software and associated documentation files (the "Software"), to deal
+	in the Software without restriction, including without limitation the rights
+	to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+	copies of the Software, and to permit persons to whom the Software is
+	furnished to do so, subject to the following conditions:
+
+	The above copyright notice and this permission notice shall be included in all
+	copies or substantial portions of the Software.
+
+	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+	IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+	FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+	AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+	LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+	SOFTWARE.
+	
 	*/
 	
