@@ -1685,6 +1685,10 @@ eolstr:
 	the Look character do we bother to read the next character, where it is safely
 	held in Look to be analyzed when it's needed.
 
+	Reference
+
+        http://www.compilers.iecc.com/crenshaw/
+
 	*/
 
 	.data
