@@ -24,7 +24,7 @@
 	gcc -nostdlib -o arpilisp arpilisp.s
 
 	This tells the GNU compiler (gcc) to use arpilisp.s, this file that you are
-	reading, as input, to build build an executable file named arpilisp.  Later we
+	reading, as input, to build an executable file named arpilisp.  Later we
 	cover what the -nostdlib option does.
 
 	To use arpilisp itself, type this:
