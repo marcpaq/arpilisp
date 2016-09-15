@@ -6,7 +6,11 @@ Arpilisp is a Lisp interpreter for the Raspberry Pi. It uses assembly, the lowes
 
 It's all in a single, commented assembly file, ready to build, use, extend, and hack.
 
-To get started you can either clone this repository or download [arpilisp.s](https://raw.githubusercontent.com/marcpaq/arpilisp/master/arpilisp.s) directly. Instructions for building and using are in the file.
+To get started you can either download [arpilisp.s](https://raw.githubusercontent.com/marcpaq/arpilisp/master/arpilisp.s) directly or clone this repository:
+
+`git clone https://github.com/marcpaq/arpilisp`
+
+Instructions for building and using are in the file.
 
 Feedback is welcome and encouraged.
 
