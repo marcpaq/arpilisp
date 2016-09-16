@@ -47,6 +47,8 @@
 	the simplicity and elegance hiding in complex things, and for reminding us that
 	computers are awesome.
 
+	Thanks also to Chris Hinsley for feedback.
+
 	________________________________________________________________________________
 
 	The Shortest Introduction to Lisp
