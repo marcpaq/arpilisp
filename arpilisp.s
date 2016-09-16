@@ -1012,7 +1012,6 @@ freelist:
 	mov r0, r2
 	bl pushlisp
 	bvs 999f
-	bl mark
 	bl collectgarbage
 	bl poplisp
 	mov r2, r0
