@@ -77,7 +77,7 @@
 	no need to put white space around parentheses.  Here are some lists that look
 	different to us but mean the same to Lisp:
 
-	(lettuce  tomato   oil	  vingar     )
+	(lettuce  tomato   oil	  vinegar     )
 
 	(lettuce
 	tomato
