@@ -47,7 +47,7 @@
 	the simplicity and elegance hiding in complex things, and for reminding us that
 	computers are awesome.
 
-	Thanks also to Chris Hinsley for feedback.
+	Thanks also to Chris Hinsley and Jay Sissom for feedback.
 
 	________________________________________________________________________________
 
@@ -769,8 +769,8 @@ cells:
 	track it to reuse it later.  
 
 	So it's up to our interpreter to implement automatic memory management.  When a
-	Lisp program runs out of memory, the intreter must look for abandoned memory to
-	reuse.  The first implementors of Lisp called this "garbage collection."  The
+	Lisp program runs out of memory, the interpreter must look for abandoned memory
+	to reuse.  For this, McCarthy's team invented the term "garbage collection".  The
 	name stuck.
 
 	The first Lisp used mark-sweep garbage collection.  So do we because it is
