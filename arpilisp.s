@@ -38,7 +38,7 @@
 	https;//www.raspberrypi.org
 
 	https://www.raspbian.org
-	
+
 	________________________________________________________________________________
 
 	Acknowledgements
@@ -104,7 +104,7 @@
 	A symbol is just that: a name.  What the symbol represents depends on you, the
 	programmer.  In our list above, lettuce, tomato, oil, and vingear are symbols
 	for salad ingredients.  We sometimes refer to symbols as atoms.  Unlike lists,
-	atoms are not composed of parts. 
+	atoms are not composed of parts.
 
 	In Lisp, lists and atoms are called "S-expressions".  We also use just
 	"expression" to mean the same thing.
@@ -157,7 +157,7 @@
 	and
 
 	(eq () nil)
-	
+
 	We can't determine how to compute the value of the first eq application until we
 	know the values of its arguments.  Behind the scenes, that's what Lisp does.  If
 	we could watch the internal computation of our S-expression, we would see Lisp
@@ -170,7 +170,7 @@
 	  (eq () nil))
 
 	to this:
-	
+
 	(eq
 	  t
 	  (eq () nil))
@@ -232,7 +232,7 @@
 
 	(lambda (x) (eq nil x))
 
-	Lisp returns the lambda, unapplied: 
+	Lisp returns the lambda, unapplied:
 
 	(lambda (x) (eq nil x))
 
@@ -251,7 +251,7 @@
 	Lisp applies our lambda like a regular function application by following these
 	steps:
 
-	1. Evaluate the expressions of the arguments. 
+	1. Evaluate the expressions of the arguments.
 
 	2. Bind each evaluated argument, in the order it appears in the application, to
 	each of the parameters in the order that they appear in lambda parameter list.
@@ -270,7 +270,7 @@
 
 	(lettuce tomato oil vinegar)
 
-	In step 2, Lisp binds this evaluated argument to the parameter, x. 
+	In step 2, Lisp binds this evaluated argument to the parameter, x.
 
 	For step 3, Lisp evaluates the lambda body, replacing occurrences of x with the
 	value it is bound to. This:
@@ -285,7 +285,7 @@
 	this is the only and last expression in the lambda, the lambda application
 	returns nil.  Returning nil for a non-nil argument is ironic until you remember
 	that nil means false in this case.
-	
+
 	The parameter bindings in a lambda application last only during the application
 	of the lambda.  In step 4, Lisp unbinds the lambda's parameters.  The x argument
 	has no value.
@@ -307,7 +307,7 @@
 	name
 
 	evaluates to what you would expect:
-	
+
 	Valerie
 
 	You can also change an existing binding:
@@ -322,7 +322,7 @@
 
 	name
 
-	returns:	
+	returns:
 
 	Rose
 
@@ -362,11 +362,11 @@
 	of clauses.
 
 	(cond clause1 clause2... clauseN)
-	
+
 	Each clause is a list of 2 expressions:
 
 	(test result)
-	
+
 	If the test expression is true, then cond returns the value of the corresponding
 	result expression and stops processing subsequent clauses.  If the test is
 	false, cond proceeds to the next clause.  It continues doing so until it finds a
@@ -401,9 +401,9 @@
 	clauses, so the clause:
 
 	(t (quote goodbye))
-	
+
 	doesn't get evaluated.
-	
+
 	As a matter of good habit, we always put a final clause in a cond that has t for
 	a condition expression.  That way we assure ourselves that a cond expression
 	returns a value that we specify when all other clause tests are false.
@@ -422,7 +422,7 @@
 
 	(define salad (quote (lettuce tomato oil vinegar)))
 
-	Entering this:	
+	Entering this:
 
 	(car salad)
 
@@ -463,8 +463,8 @@
 	salad
 
 	still gives us:
-	
-	(lettuce tomato oil vinegar)	
+
+	(lettuce tomato oil vinegar)
 
 	Functions that don't modify bindings other than their own are called "pure
 	functions", which is another way of saying that you, the Lisp user, don't have
@@ -610,7 +610,7 @@
 	.macro ZSET
 	msr apsr_nzcvq, #1<<30
 	.endm
-	
+
 	.macro ZCLR
 	msr apsr_nzcvq, #0
 	.endm
@@ -645,7 +645,7 @@ lispstackbottom:
 	interpreter gracefully recover from exhausted Lisp stack space.
 
 	*/
-	
+
 	PROC pushlisp
 	push { r1 }
 	ldr r1, =lispstackbottom
@@ -766,10 +766,10 @@ cells:
 
 	In assembly language, memory is definitely limited.  We have to meticulously and
 	precisely manage memory usage.  When we no longer need it, we have to carefully
-	track it to reuse it later.  
+	track it to reuse it later.
 
 	So it's up to our interpreter to implement automatic memory management.  When a
-	Lisp program runs out of memory, the intreter must look for abandoned memory to
+	Lisp program runs out of memory, the interpeter must look for abandoned memory to
 	reuse.  The first implementors of Lisp called this "garbage collection."  The
 	name stuck.
 
@@ -795,10 +795,10 @@ freelist:
 	the last cons cell, we point to nil.
 
 	When it's initialized, our free list initially looks like this:
-	
+
 	             +-----+-----+   +-----+-----+            +-----------+
-	freelist --->| car | cdr --->| car | cdr ---> ... --->| car | cdr --->nil 
-	             +-----+-----+   +-----+-----+            +-----+-----+   
+	freelist --->| car | cdr --->| car | cdr ---> ... --->| car | cdr --->nil
+	             +-----+-----+   +-----+-----+            +-----+-----+
 
 	*/
 
@@ -848,8 +848,8 @@ freelist:
 	+--------+--------+--   --+-------+-------+
 	| 0 or 1 | 0 or 1 |  ...  |   0   |   0   |
 	+--------+--------+--   --+-------+-------+
-	  bit 31   bit 30           bit 1   bit 0 
-	
+	  bit 31   bit 30           bit 1   bit 0
+
 	We take advantage of these 2 bits to encode information about a Lisp object in
 	the actual pointer to the object.
 
@@ -882,7 +882,7 @@ freelist:
 	bl mark
 
 	/* Mark the Lisp stack. */
-10:	ldr r0, =lispstacktop	
+10:	ldr r0, =lispstacktop
 	cmp r6, r0
 	beq 20f
 	ldmfd r6!, { r0 }
@@ -973,26 +973,26 @@ freelist:
 
 	Lisp provides the cons function to allocate new cells.  A Lisp program uses cons
 	to construct its data.  This is where the free list comes in.
-	
+
 	             +-----+-----+   +-----+-----+            +-----------+
-	freelist --->| car | cdr --->| car | cdr ---> ... --->| car | cdr --->nil 
-	             +-----+-----+   +-----+-----+            +-----+-----+   
+	freelist --->| car | cdr --->| car | cdr ---> ... --->| car | cdr --->nil
+	             +-----+-----+   +-----+-----+            +-----+-----+
 		         cell 1          cell 2                   cell N
 
 
 	Allocating a cons cell from the freelist is simple.  We just "pop" it from the
 	freelist:
-	
+
                      allocated cell
 	                   |
                            V
 	             +-----+-----+     +-----+-----+            +-----------+
-	freelist -+  | car | cdr |  +->| car | cdr ---> ... --->| car | cdr --->nil 
-	          |  +-----+-----+  |  +-----+-----+            +-----+-----+   
+	freelist -+  | car | cdr |  +->| car | cdr ---> ... --->| car | cdr --->nil
+	          |  +-----+-----+  |  +-----+-----+            +-----+-----+
 		  |      cell 1     |     cell 2                   cell N
-		  |		    |	
+		  |		    |
 	          +-----------------+
-	
+
 	Given pointers to Lisp objects in r1 and r2, return an allocated cell in r0 such
 	that its car contains r1 and cdr contains r2.  Otherwise, panic if there is no
 	memory or issue an error if the Lisp stack is full.
@@ -1007,7 +1007,7 @@ freelist:
 	cmp r0, #NIL
 	bne 10f
 
-	
+
 	mov r0, r1
 	bl pushlisp
 	bvs 999f
@@ -1023,7 +1023,7 @@ freelist:
 	ldr r0, [ r3 ]			/* Is the free list still empty? */
 	cmp r0, #NIL
 	bne 10f
-	
+
 	ldr r0, =panicmemfull
 	b panic
 
@@ -1097,7 +1097,7 @@ obarray:
 	A reference to a symbol is not really a pointer.  To decode a reference to a
 	symbol into a usable pointer, we mask out the flag and add the address of
 	obarray.
-	
+
 	Why not use a real pointer instead of addding the address of obarray?  It turns
 	out that setting up the initial symbols we need for arpilisp poses a challenge.
 	Ideally, we would like to pre-fill obarray at assembly time instead of runtime.
@@ -1142,7 +1142,7 @@ obarray:
 	LISPSYM symcond, "cond"
 	LISPSYM symdefine, "define"
 	LISPSYM symlambda, "lambda"
-	
+
 	LISPSYM errdot, "Error: unexpected dot "
 	LISPSYM errparenmissing, "Error: expected closing parenthesis "
 	LISPSYM errparen, "Error: unexpected closing parenthesis "
@@ -1154,7 +1154,7 @@ obarray:
 	LISPSYM errargextra, "Error: too many arguments "
 	LISPSYM errargmissing, "Error: missing arguments "
 	LISPSYM errstackfull, "Error: stack full "
-	
+
 	LISPSYM panicstackempty, "Panic: stack empty"
 	LISPSYM panicobarrayfull, "Panic: obarray full"
 	LISPSYM panicmemfull, "Panic: memory full"
@@ -1347,7 +1347,7 @@ internbuffer:
 
 	To print a pointer to a Lisp object, let's take a first stab at syntax rules:
 
-	pointer = 'nil' | symbol | cell 
+	pointer = 'nil' | symbol | cell
 
 	cell = '(' car '.' cdr ')'
 
@@ -1363,7 +1363,7 @@ internbuffer:
 	notation".
 
 	* A list is a recursive definition; a car and cdr may each point to other cells
-	via the syntax rule, pointer. 
+	via the syntax rule, pointer.
 
 	Example output from these rules:
 
@@ -1412,11 +1412,11 @@ internbuffer:
 	Now you know why Lisp is sometimes referred to as "Lots of Irritating, Stupid
 	Parentheses."
 
-	Let's add a couple of rules to make the output a little cleaner. 
+	Let's add a couple of rules to make the output a little cleaner.
 
 	Our new rules:
 
-	pointer = 'nil' | symbol | cell 
+	pointer = 'nil' | symbol | cell
 
 	cell = '(' cell-contents ')'
 
@@ -1431,7 +1431,7 @@ internbuffer:
 	cdr-symbol = ' . ' symbol
 
 	Note our changes:
-	
+
 	* When the cdr is nil, don't print the dot and don't print the 'nil'.
 
 	* When the cdr points to a cell, we don't print a dot or the left
@@ -1439,7 +1439,7 @@ internbuffer:
 
 	* Only when the cdr points to a symbol, do we print a dot, followed by the
 	symbol.
-	
+
 	With these updated rules our example output becomes:
 
 	* Nil is still output as "nil".
@@ -1584,7 +1584,7 @@ eolstr:
 	________________________________________________________________________________
 
 	Low-Level I/O
-	
+
 	With the logic to format S-expressions for output, we need a way to actually get
 	this information into the real world for the user to see.  This is the part
 	where we implement I/O.
@@ -1737,11 +1737,11 @@ lookbuffer:
 	otherwise part of Lisp syntax.  This means any string of characters is allowed
 	in a symbol excluding control characters (which includes white space), the
 	opening and closing parentheses, and dot.
- 
+
 	This function only works within the Unicode Basic Latin block, aka
 	ASCII.  We could make the effort to support Unicode more substantially, but we
 	want to focus on Lisp in assembly, not Unicode.
-	
+
 	*/
 
 	PROC issym
@@ -1760,7 +1760,7 @@ lookbuffer:
 	bge 20f
 	ZSET				/* A valid symbol character. */
 	b 999f
-	
+
 20:	ZCLR				/* Not valid. */
 
 999:	pop { pc }
@@ -1870,7 +1870,7 @@ lookbuffer:
 	b 999f
 4:	bl readsym
 	bvs 999f
-	
+
 990:	ERRCLR
 999:	pop { r0, pc }
 
@@ -1991,11 +1991,11 @@ lookbuffer:
 
 	bl issym
 	beq 1b
-	
+
 	bl getchar			/* Eat the non-symbol character. */
 	ERRSET errbadsym
 	b 999f
-	
+
 3:	ldr r2, =internbufferlen	/* Finished reading.  Store the length. */
 	str r1, [ r2 ]
 	bl intern
@@ -2037,7 +2037,7 @@ greeting:
 	To terminate arpilisp, we use the sys_exit system call.  This call needs only one
 	parameter, the exit status.  Unlike other system calls, the kernel doesn't
 	return execution to arpilisp after we make the system call for sys_exit.  So we
-	don't bother pushing and popping registers. 
+	don't bother pushing and popping registers.
 
 	*/
 
@@ -2110,7 +2110,7 @@ greeting:
 	bl defsym
 	bvs 30f
 	b 10b
-	
+
 15:	bl eval
 	bvs 30f
 	mov r0, r7
@@ -2132,7 +2132,7 @@ greeting:
 	returns nil otherwise, which implies that its argument is a cons cell.
 
 	Our assembly version sets the Z condition.
-	
+
 	*/
 	PROC atom
 	push { lr }
@@ -2144,12 +2144,12 @@ greeting:
 
 	ZCLR				/* Not an atom. */
 	b 999f
-	
+
 990:	ZSET				/* We have an atom. */
 
 999:	pop { pc }
 	ENDPROC
-	
+
 	/*
 
 	Car and cdr are simple in concept, but we implement versions that do some error
@@ -2251,14 +2251,14 @@ greeting:
 	and we return nil.
 
 	The second clause:
-	
+
 	((eq key (car (car alist))) (car alist))
 
 	Is the key equal to the car of the car of the association list?  If they are
 	equal, then return the car of the association list, which is the binding pair.
 
 	The last clause:
-	
+
 	(t                          (assoc key (cdr alist)))
 
 	This clause acts as a fallback clause, guaranteeing that it will always be
@@ -2328,19 +2328,19 @@ greeting:
 	mov r0, r8
 	bl atom
 	beq 990f
-	
+
 	bl car
 	ldr r1, =symdefine
 	cmp r0, r1
 	bne 990f
-	
+
 	mov r0, r8			/* Get the symbol to bind. */
 	bl cdr
 	bvs 990
 	bl car
 	bvs 990
 	mov r1, r0			/* Remember the symbol to bind. */
-	
+
 	mov r0, r8			/* Get the expression to evaluate. */
 	bl cdr
 	bvs 990
@@ -2353,13 +2353,13 @@ greeting:
 	mov r0, r1
 	ZSET				/* We have a define expression. */
 	b 999f
-	
+
 990:	ZCLR				/* Not a define expression. */
 	mov r0, r2			/* Restore r0. */
-	
+
 999:	pop { r1-r2, pc }
 	ENDPROC
-	
+
 	/*
 
 	The define function extends or modifies the environment.  It takes 2 arguments:
@@ -2384,7 +2384,7 @@ greeting:
 
 5:	bl eval
 	bvs 999f
-	
+
 	mov r2, r0			/* Remember our symbol. */
 
 10:	bl assoc
@@ -2410,7 +2410,7 @@ greeting:
 	ENDPROC
 
 
-	
+
 	/*
 
 	________________________________________________________________________________
@@ -2418,7 +2418,7 @@ greeting:
 	Evaluation
 
 	We haven't covered what exactly the E means in the REPL.  Evaluation means
-	converting an S-expression into a value. 
+	converting an S-expression into a value.
 
 	Get ready for it: here comes another big Lisp innovation.
 
@@ -2427,7 +2427,7 @@ greeting:
 	of a Lisp function named eval that evaluates Lisp expressions.  It was a
 	ground-breaking feat to define a programming language in terms of itself.  It
 	was an obvious thing to do, considering Lisp's expressiveness.  It was also
-	remarkably concise. 
+	remarkably concise.
 
 	Computer scientists call this "self-interpreting".  A self-interpreting language
 	is astonishingly easy to extend.  Just modify its interpreter, which is the
@@ -2450,7 +2450,7 @@ greeting:
 	     ((selfevalp expr)      expr)
 	     (t                     (quote errbadlistexpr)))))
 
-	The selfevalp function return true if an expression is self-evaluating, false 
+	The selfevalp function return true if an expression is self-evaluating, false
 	otherwise.
 
 	(define selfevalp
@@ -2484,7 +2484,7 @@ greeting:
 	     ((selfevalp expr)      expr)
 	     ((eq expr (quote nil)) ())
 	     (t                     (quote errbadlistexpr)))))
-	
+
 	(eval (quote nil))
 	nil
 
@@ -2502,7 +2502,7 @@ greeting:
 
 	The symbolp predicate returns true if its argument is a symbol, false
 	otherwise:
-	
+
 	(define symbolp
 	  (lambda (x)
 	    (cond ((atom x) (cond ((null x) nil) (t t)))
@@ -2543,7 +2543,7 @@ greeting:
 
 	Other special forms and functions follow a similar pattern as quote.  Here's the
 	complete eval:
-	
+
 	(define eval
 	  (lambda (expr env)
 	    (cond
@@ -2609,7 +2609,7 @@ greeting:
 	blvc cdr
 	blvc car
 	.endm
-	
+
 	PROC selfevalp
 	push { r1, lr }
 
@@ -2618,10 +2618,10 @@ greeting:
 
 	ldr r1, =symt
 	cmp r0, r1
-	
+
 999:	pop { r1, pc }
 	ENDPROC
-	
+
 	/*
 
 	Our ARM assembly eval takes an expression in r8 and an environment in r9,
@@ -2664,7 +2664,7 @@ greeting:
 	bne 30f
 	ERRSET errunboundvar
 	b 999f
-	
+
 30:	bl cdr
 	bvs 999f
 	mov r7, r0
@@ -2711,7 +2711,7 @@ greeting:
 	bvs 999f
 	mov r7, r0
 	b 990f
-	
+
 	// ((eq (car expr) (quote cdr))    (cdr (eval (arg1 expr) env)))
 80:	MATCHFORM symcdr
 	bne 90f
@@ -2802,7 +2802,7 @@ greeting:
 	mov r0, r2
 	bl evlis
 	bvs 999f
-	
+
 	mov r0, r1
 	bl apply
 	bvs 999f
@@ -2812,7 +2812,7 @@ greeting:
 	bl poplisp
 	mov r5, r0
 	ERRCLR
-	
+
 999:	pop { r0-r2, pc }
 	ENDPROC
 
@@ -2961,7 +2961,7 @@ greeting:
 	    (cond
 	      ((null (cdr (cdr fn))) nil)
 	      (t (apply-body (cdr (cdr fn)) (pairlis (car (cdr fn)) args env))))))
-	
+
 	(define apply-body
 	  (lambda (body env)
 	    (cond
@@ -3006,7 +3006,7 @@ greeting:
 	/* Make sure we have a lambda. */
 	bl car
 	bvs 980f
-	
+
 	ldr r1, =symlambda
 	cmp r0, r1
 	bne 980f
@@ -3088,7 +3088,7 @@ greeting:
 	      (t (cons
 	           (cons (car params) (car vals))
 	           (pairlis (cdr params) (cdr vals) env))))))
-  
+
 	Given a list of parameters in r0, a list of values in r5, and an environment to
 	extend in r9, bind each parameter to a value then extend r9.
 
@@ -3182,6 +3182,6 @@ greeting:
 	LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 	SOFTWARE.
-	
+
 	*/
-	
+
