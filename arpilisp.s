@@ -320,9 +320,7 @@
 
 	((lambda (name) name) (quote Rose))
 
-	name
-
-	returns:	
+	returns:
 
 	Rose
 
@@ -1420,7 +1418,7 @@ internbuffer:
 
 	cell = '(' cell-contents ')'
 
-	cell-contents = car ' ' (cdr-nil | cdr-cell | cdr-symbol )
+	cell-contents = car (cdr-nil | cdr-cell | cdr-symbol)
 
 	car = pointer
 
