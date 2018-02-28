@@ -2465,7 +2465,7 @@ greeting:
 	If it fails to recognize an expression, it returns errbadlistexpr.
 	Examples:
 
-	(eval (quote ())
+	(eval (quote ()))
 	nil
 
 	(eval (quote t))
@@ -2955,7 +2955,7 @@ greeting:
 	Our assembly apply procedure implements these Lisp functions:
 
 	(define apply
-	  (lambda (fn args)
+	  (lambda (fn args env)
 	    (cond
 	      ((null (cdr (cdr fn))) nil)
 	      (t (apply-body (cdr (cdr fn)) (pairlis (car (cdr fn)) args env))))))
