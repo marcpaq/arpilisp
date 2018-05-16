@@ -1381,7 +1381,7 @@ internbuffer:
 	abacus
 
 	* Let B be a cons cell in which the car points to symbol "beluga" and cdr points
-	to nil.  Printing A gives "(beluga . nil)".
+	to nil.  Printing B gives "(beluga . nil)".
 
 	B
 	+-----+-----+
