@@ -403,7 +403,7 @@
 	doesn't get evaluated.
 	
 	As a matter of good habit, we always put a final clause in a cond that has t for
-	a condition expression.  That way we assure ourselves that a cond expression
+	a condition clause's test.  That way we assure ourselves that a cond test
 	returns a value that we specify when all other clause tests are false.
 
 	Lisp isn't all special forms.  In fact, there are only a handful.  Most Lisp
@@ -726,7 +726,7 @@ lispstackbottom:
 	For simplicity of implementation, a practical value for nil is 0.  We store
 	nothing useful at memory location 0.
 
-        Side note: In fact, a Linux user program cannot store or load location 0.  The
+	Side note: In fact, a Linux user program cannot store or load location 0.  The
 	ARM Linux kernel doesn't allow it by design.  Doing so results in a segmentation
 	fault, which is an intentional thing.
 
@@ -855,7 +855,7 @@ freelist:
 	settings bit 1 to 1.  We have another use for bit 0, covered later.
 
 	We don't need to worry about decoding a marked cell to refer to its pointer for
-	a few reasons: our program is suspended during mark and sweep, we don't follow
+	a few reasons: our Lisp program is suspended during mark and sweep, we don't follow
 	reachable cells from a marked cell, and we only use the mark bit during the
 	marking phase of garbage collection.
 
@@ -983,7 +983,7 @@ freelist:
 	
                      allocated cell
 	                   |
-                           V
+	                   V
 	             +-----+-----+     +-----+-----+            +-----------+
 	freelist -+  | car | cdr |  +->| car | cdr ---> ... --->| car | cdr --->nil 
 	          |  +-----+-----+  |  +-----+-----+            +-----+-----+   
@@ -2216,7 +2216,7 @@ greeting:
 	tool for iteration.  Don't be surprised when I state that Lisp solves iteration
 	quite elegantly.
 
-	Here's a common pattern in a Lisp function to iterates over a list:
+	Here's a common pattern in a Lisp function to iterate over a list:
 
 	* If the list is empty, stop and return a value indicating as much.
 
