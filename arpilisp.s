@@ -2448,7 +2448,7 @@ greeting:
 	     ((selfevalp expr)      expr)
 	     (t                     (quote errbadlistexpr)))))
 
-	The selfevalp function return true if an expression is self-evaluating, false 
+	The selfevalp function returns true if an expression is self-evaluating, false 
 	otherwise.
 
 	(define selfevalp
