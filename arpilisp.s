@@ -102,7 +102,7 @@
 	nil
 
 	A symbol is just that: a name.  What the symbol represents depends on you, the
-	programmer.  In our list above, lettuce, tomato, oil, and vingear are symbols
+	programmer.  In our list above, lettuce, tomato, oil, and vinegar are symbols
 	for salad ingredients.  We sometimes refer to symbols as atoms.  Unlike lists,
 	atoms are not composed of parts. 
 
