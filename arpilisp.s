@@ -59,7 +59,7 @@
 	amazing things about how Lisp can make computers do surprising, interesting
 	things.
 
-	Most people acknowledge Lisp's influences without knowing what they are exactly.
+	Most people acknowledge Lisp's influence without knowing what it is exactly.
 	Others are turned off by Lisp's weirdness.  Lisp continues to influence
 	programming languages today.  It's not as inaccessible, alien, or irrelevant as
 	you might believe.
