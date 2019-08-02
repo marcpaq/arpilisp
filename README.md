@@ -14,8 +14,4 @@ Instructions for building and using are in the file.
 
 Feedback is welcome and encouraged.
 
-Interested in other single-file language implementations? Take a look at [A Bestiary of Single-File Implementations of Programming Languages ](https://github.com/marcpaq/b1fipl).
-
-Interested in the ancestry of Unix-like shells? Take a look at [Shell ancestry](https://github.com/marcpaq/shellancestry).
-
 Enjoy.
