@@ -1056,7 +1056,7 @@ freelist:
 	symbol 1			 	 symbol 2
 	+-----------+------------+--------------+---- - - -
 	| length    | characters | padding      | length
-	+- 4 bytes -+- n bytes --+- <= 4 bytes -+---- - - -
+	+- 4 bytes -+- n bytes --+- < 4 bytes  -+---- - - -
 
 	We store symbol print names in a block of memory.  The traditional name for this
 	block is "obarray."
