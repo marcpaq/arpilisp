@@ -35,7 +35,7 @@
 
 	References
 
-	https;//www.raspberrypi.org
+	https://www.raspberrypi.org
 
 	https://www.raspbian.org
 	
