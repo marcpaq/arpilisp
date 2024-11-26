@@ -1592,7 +1592,7 @@ eolstr:
 	libraries pile layers of convenient wrappers and lots of infrastructure between
 	a user program and the kernel's low-level services.
 
-	We choose to avoid that.  Instead, we call the linux kernel directly through its
+	We choose to avoid that.  Instead, we call the Linux kernel directly through its
 	system call interface.  Each system call has a unique number.  Most system calls
 	also need parameters.  To cross the border between a user program and the
 	kernel, we load the system call's number and parameters into registers then use
@@ -2084,9 +2084,9 @@ greeting:
 	call them computers; we call them phones, tablets, watches, cars, and other
 	things.  Thank (or curse) Lisp for lighting the path that we took to get here.
 
-	Notice that our REPL might more accurately be called RDorEPL; Read, Define or
-	Evaluate-Print, Loop.  To simplify our interpreter, we separate variable
-	definition from evaluation.
+	Our REPL might more accurately be called RDorEPL; Read, Define or Evaluate, 
+	Print, Loop.  To simplify our interpreter, we separate variable definition 
+	from evaluation.
 
 	*/
 
